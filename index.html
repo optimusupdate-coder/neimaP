@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour toi, Neima</title>
+<style>
+  :root{
+    --bg-top:#fff8f0;
+    --bg-bottom:#fbe8d9;
+    --ink:#5c3a26;
+    --accent:#d98a3d;
+    --accent-dark:#b96f28;
+    --rose:#e2856b;
+    --card:#fffefb;
+    --card-shadow: 0 20px 60px rgba(92,58,38,0.18);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Poppins', 'Segoe UI', sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@400;500;600&display=swap');
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin:0; padding:0; height:100%;
+    font-family: var(--font-body);
+    background: linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+    color: var(--ink);
+    overflow: hidden;
+  }
+
+  #app {
+    position: relative;
+    width:100%; height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding: 24px;
+  }
+
+  .floaties { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1; }
+  .floaty {
+    position:absolute; bottom:-40px; font-size: 22px; opacity:0.85;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity:0; }
+    10% { opacity:0.9; }
+    100% { transform: translateY(-110vh) rotate(20deg); opacity:0; }
+  }
+
+  .card {
+    position:relative; z-index:2;
+    background: var(--card);
+    border-radius: 24px;
+    box-shadow: var(--card-shadow);
+    padding: 48px 40px;
+    max-width: 460px;
+    width: 100%;
+    text-align:center;
+    animation: cardIn 0.6s cubic-bezier(.2,.9,.3,1.1);
+  }
+  @keyframes cardIn {
+    from { opacity:0; transform: translateY(18px) scale(0.97); }
+    to { opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  .eyebrow {
+    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); font-weight:600; margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 28px;
+    line-height:1.35;
+    margin: 0 0 14px 0;
+  }
+
+  p.body-text {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: #7a5238;
+    margin: 0 0 30px 0;
+    text-align: left;
+  }
+
+  .btn {
+    display:inline-block;
+    border:none;
+    border-radius: 999px;
+    padding: 14px 34px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    cursor:pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: white;
+    box-shadow: 0 10px 24px rgba(217,138,61,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(217,138,61,0.45); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .hidden { display:none; }
+
+  .final-icon { font-size: 50px; margin-bottom: 10px; }
+
+  .signature {
+    margin-top: 22px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--rose);
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div class="floaties" id="floaties"></div>
+
+  <!-- Étape 1 : ouverture -->
+  <div class="card" id="step1">
+    <div class="eyebrow">Pour toi, Neima</div>
+    <h1>Il y a une chose que je veux te dire aujourd'hui...</h1>
+    <p class="body-text">Prends une minute, ferme la porte, et laisse-moi te parler.</p>
+    <button class="btn btn-primary" onclick="goToStep(2)">Je t'écoute</button>
+  </div>
+
+  <!-- Étape 2 : remerciement à l'épouse -->
+  <div class="card hidden" id="step2">
+    <div class="eyebrow">Merci</div>
+    <h1>Merci d'être ma femme, Neima.</h1>
+    <p class="body-text">
+      Merci pour ta patience, ta force et ton amour de chaque jour.
+      Merci de partager ta vie avec moi, dans les moments simples comme dans les plus difficiles.
+      Je ne prends jamais pour acquis la chance que j'ai de t'avoir à mes côtés.
+    </p>
+    <button class="btn btn-primary" onclick="goToStep(3)">Continuer</button>
+  </div>
+
+  <!-- Étape 3 : les enfants -->
+  <div class="card hidden" id="step3">
+    <div class="eyebrow">Notre plus beau cadeau</div>
+    <h1>Et merci pour nos enfants. 👶💕</h1>
+    <p class="body-text">
+      Chaque sourire, chaque rire, chaque petit pas de nos enfants est un cadeau que tu m'as offert.
+      Tu as fait de moi un père, et de notre maison une famille.
+      Il n'y a pas de plus beau cadeau que celui-là.
+    </p>
+    <button class="btn btn-primary" onclick="goToStep(4)">Continuer</button>
+  </div>
+
+  <!-- Étape 4 : note finale heureuse -->
+  <div class="card hidden" id="step4">
+    <div class="final-icon">🥰</div>
+    <h1>Je suis un homme heureux.</h1>
+    <p class="body-text" style="text-align:center;">
+      Heureux d'être ton mari, heureux d'être le père de nos enfants, et heureux de construire
+      chaque jour un peu plus de bonheur avec toi, Neima. Je t'aime, aujourd'hui et pour toujours.
+    </p>
+    <div class="signature">— Amine, qui t'aime plus que les mots ne peuvent le dire 💛</div>
+  </div>
+</div>
+
+<script>
+function goToStep(n) {
+  document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+  document.getElementById('step' + n).classList.remove('hidden');
+  if (n === 4) burstFloaties(30);
+}
+
+function burstFloaties(count) {
+  const container = document.getElementById('floaties');
+  const icons = ['💛','💕','✨','🌸','💫'];
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const f = document.createElement('div');
+      f.className = 'floaty';
+      f.innerText = icons[Math.floor(Math.random()*icons.length)];
+      f.style.left = Math.random() * 100 + '%';
+      f.style.fontSize = (16 + Math.random()*18) + 'px';
+      f.style.animationDuration = (4 + Math.random()*3) + 's';
+      container.appendChild(f);
+      setTimeout(() => f.remove(), 8000);
+    }, i * 80);
+  }
+}
+
+burstFloaties(6);
+setInterval(() => burstFloaties(2), 5000);
+</script>
+
+</body>
+</html>
