@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Questionnaire</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>Votre besoin</h1>
+
+
+<label>Nom :</label>
+
+<input id="nom">
+
+
+<label>Téléphone :</label>
+
+<input id="telephone">
+
+
+<label>Ville :</label>
+
+<input id="ville">
+
+
+<label>Domaine :</label>
+
+
+<select id="service">
+
+<option value="IT">
+💻 Informatique
+</option>
+
+<option value="BTP">
+🏗️ BTP
+</option>
+
+<option value="AGRO">
+🌱 Agronomie
+</option>
+
+<option value="ENT">
+🧹 Entretien
+</option>
+
+
+</select>
+
+
+
+<label>Décrivez votre besoin :</label>
+
+
+<textarea id="besoin"></textarea>
+
+
+<button onclick="envoyer()">
+
+Analyser mon besoin
+
+</button>
+
+
+</div>
+
+
+<script src="js/questionnaire.js"></script>
+
+
+</body>
+
+</html>
