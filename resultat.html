@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Résultat</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>Analyse de votre besoin</h1>
+
+
+<div id="resultat"></div>
+
+
+<br>
+
+
+<a id="whatsapp">
+
+<button>
+Nous contacter WhatsApp
+</button>
+
+</a>
+
+
+</div>
+
+
+<script>
+
+
+let data=
+JSON.parse(
+localStorage.getItem("demande")
+);
+
+
+
+let message="";
+
+
+if(data.service=="IT"){
+
+message=
+"Audit informatique, réseau, sécurité, maintenance et accompagnement IT.";
+
+}
+
+
+if(data.service=="BTP"){
+
+message=
+"Étude, construction, rénovation et suivi de chantier.";
+
+}
+
+
+if(data.service=="AGRO"){
+
+message=
+"Conseil agricole, production, irrigation et accompagnement.";
+
+}
+
+
+if(data.service=="ENT"){
+
+message=
+"Nettoyage, entretien et maintenance des espaces.";
+
+}
+
+
+
+document.getElementById("resultat").innerHTML=
+
+`
+<h3>${data.nom}</h3>
+
+<p>
+Domaine :
+<b>${data.service}</b>
+</p>
+
+<p>
+Besoin :
+${data.besoin}
+</p>
+
+<p>
+Solution proposée :
+${message}
+</p>
+
+`;
+
+
+
+let msg=
+`Bonjour, je suis ${data.nom}.
+Mon besoin concerne ${data.service}.
+Besoin : ${data.besoin}`;
+
+
+
+document.getElementById("whatsapp").href=
+"https://wa.me/22890000000?text="
++encodeURIComponent(msg);
+
+
+</script>
+
+
+</body>
+
+</html>
