@@ -1,89 +1,92 @@
 <!DOCTYPE html>
-
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
-
-<title>Questionnaire</title>
-
+<title>Votre besoin — Atelier Services</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-
 </head>
-
-
 <body>
 
+<div class="shell">
 
-<div class="container">
+  <div class="brand">
+    <div class="brand-mark">AS</div>
+    <div class="brand-name">Atelier <span>Services</span></div>
+  </div>
 
+  <div class="steps">
+    <div class="step done"><span class="num">✓</span><span class="label">Accès</span></div>
+    <div class="sep"></div>
+    <div class="step active"><span class="num">2</span><span class="label">Besoin</span></div>
+    <div class="sep"></div>
+    <div class="step"><span class="num">3</span><span class="label">Résultat</span></div>
+  </div>
 
-<h1>Votre besoin</h1>
+  <div class="card">
+    <p class="eyebrow">Étape 2 sur 3</p>
+    <h1>Parlez-nous de<br><em>votre projet</em></h1>
+    <p class="lede">Quelques informations suffisent pour orienter votre demande vers la bonne équipe.</p>
 
+    <form id="form-besoin" novalidate>
 
-<label>Nom :</label>
+      <label for="nom">Nom complet</label>
+      <input id="nom" type="text" placeholder="Ex : Kodjo Amégan" autocomplete="name">
+      <p class="field-error" id="err-nom">Merci d'indiquer votre nom.</p>
 
-<input id="nom">
+      <label for="telephone">Téléphone <span class="opt">(WhatsApp de préférence)</span></label>
+      <input id="telephone" type="tel" placeholder="Ex : +228 90 12 34 56" autocomplete="tel">
+      <p class="field-error" id="err-tel">Merci de vérifier le format du numéro.</p>
 
+      <label for="ville">Ville <span class="opt">(optionnel)</span></label>
+      <input id="ville" type="text" placeholder="Ex : Notsé, Lomé, Kara..." autocomplete="address-level2">
 
-<label>Téléphone :</label>
+      <label>Domaine concerné</label>
+      <div class="domain-grid" role="group" aria-label="Choix du domaine">
 
-<input id="telephone">
+        <label class="domain-card it" data-service="IT">
+          <input type="radio" name="service" value="IT">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>
+          <span class="name">Informatique & Sécurité</span>
+          <span class="desc">Réseau, serveurs, cybersécurité, maintenance</span>
+        </label>
 
+        <label class="domain-card btp" data-service="BTP">
+          <input type="radio" name="service" value="BTP">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V9l6-4 6 4v12"/><path d="M20 21V11l-4-2"/><path d="M9 21v-5h4v5"/></svg>
+          <span class="name">BTP & Construction</span>
+          <span class="desc">Étude, construction, rénovation, suivi de chantier</span>
+        </label>
 
-<label>Ville :</label>
+        <label class="domain-card agro" data-service="AGRO">
+          <input type="radio" name="service" value="AGRO">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21c0-6 4-9 8-10-1 6-4 9-8 10Z"/><path d="M12 21c0-7-4-10-8-11 1 6 4 10 8 11Z"/></svg>
+          <span class="name">Agronomie</span>
+          <span class="desc">Conseil agricole, production, irrigation</span>
+        </label>
 
-<input id="ville">
+        <label class="domain-card ent" data-service="ENT">
+          <input type="radio" name="service" value="ENT">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4 6 20"/><path d="M10 4h8l-2 6h-8z"/><circle cx="6" cy="20" r="1.6"/></svg>
+          <span class="name">Entretien</span>
+          <span class="desc">Nettoyage et maintenance des espaces</span>
+        </label>
 
+      </div>
+      <p class="field-error" id="err-service">Merci de choisir un domaine.</p>
 
-<label>Domaine :</label>
+      <label for="besoin">Décrivez votre besoin</label>
+      <textarea id="besoin" placeholder="Ex : Nous cherchons un audit de notre réseau et un accompagnement pour sécuriser nos serveurs..."></textarea>
+      <p class="field-error" id="err-besoin">Merci de détailler un peu plus votre besoin (8 caractères minimum).</p>
 
-
-<select id="service">
-
-<option value="IT">
-💻 Informatique
-</option>
-
-<option value="BTP">
-🏗️ BTP
-</option>
-
-<option value="AGRO">
-🌱 Agronomie
-</option>
-
-<option value="ENT">
-🧹 Entretien
-</option>
-
-
-</select>
-
-
-
-<label>Décrivez votre besoin :</label>
-
-
-<textarea id="besoin"></textarea>
-
-
-<button onclick="envoyer()">
-
-Analyser mon besoin
-
-</button>
-
+      <button class="btn btn-primary" type="submit">Analyser mon besoin</button>
+    </form>
+  </div>
 
 </div>
 
-
+<script src="js/shared.js"></script>
 <script src="js/questionnaire.js"></script>
-
-
 </body>
-
 </html>
