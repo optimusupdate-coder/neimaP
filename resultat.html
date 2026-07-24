@@ -1,130 +1,112 @@
 <!DOCTYPE html>
-
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
-
-<title>Résultat</title>
-
+<title>Résultat — Atelier Services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-
 </head>
-
-
 <body>
 
+<div class="shell">
 
-<div class="container">
+  <div class="brand">
+    <div class="brand-mark">AS</div>
+    <div class="brand-name">Atelier <span>Services</span></div>
+  </div>
 
+  <div class="steps">
+    <div class="step done"><span class="num">✓</span><span class="label">Accès</span></div>
+    <div class="sep"></div>
+    <div class="step done"><span class="num">✓</span><span class="label">Besoin</span></div>
+    <div class="sep"></div>
+    <div class="step active"><span class="num">3</span><span class="label">Résultat</span></div>
+  </div>
 
-<h1>Analyse de votre besoin</h1>
+  <div id="analyzing" class="card analyzing">
+    <div class="spinner" aria-hidden="true"></div>
+    <p id="analyzing-text">Analyse de votre demande en cours...</p>
+  </div>
 
+  <div id="ticket-wrap" style="display:none"></div>
 
-<div id="resultat"></div>
-
-
-<br>
-
-
-<a id="whatsapp">
-
-<button>
-Nous contacter WhatsApp
-</button>
-
-</a>
-
+  <p class="footnote">Ce ticket récapitule votre demande. Conservez-le pour votre échange avec notre équipe.</p>
 
 </div>
 
-
+<script src="js/shared.js"></script>
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+  if(!requireValidSession()) return;
+  markStep(2);
 
+  const raw = sessionStorage.getItem("atelier_demande");
+  if(!raw){ window.location.href = "questionnaire.html"; return; }
+  const data = JSON.parse(raw);
 
-let data=
-JSON.parse(
-localStorage.getItem("demande")
-);
+  const SOLUTIONS = {
+    IT:   { label: "Informatique & Sécurité", cls: "it",   texte: "Audit réseau et sécurité, mise en conformité, maintenance et accompagnement IT sur mesure." },
+    BTP:  { label: "BTP & Construction",      cls: "btp",  texte: "Étude de faisabilité, chiffrage, construction ou rénovation, avec suivi de chantier dédié." },
+    AGRO: { label: "Agronomie",               cls: "agro", texte: "Diagnostic agronomique, plan de production, appui à l'irrigation et au suivi des cultures." },
+    ENT:  { label: "Entretien",               cls: "ent",  texte: "Programme de nettoyage et de maintenance adapté à la fréquence et à la taille de vos espaces." },
+  };
 
+  const sol = SOLUTIONS[data.service] || SOLUTIONS.IT;
+  const ticketNum = generateTicketNumber();
+  const dateStr = formatDateTime(data.horodatage || Date.now());
 
+  const waMessage =
+    `Bonjour, je suis ${data.nom}.\n` +
+    `Ticket : ${ticketNum}\n` +
+    `Domaine : ${sol.label}\n` +
+    `Besoin : ${data.besoin}`;
 
-let message="";
+  const waHref = "https://wa.me/22890000000?text=" + encodeURIComponent(waMessage);
 
+  // petite latence pour matérialiser "l'analyse"
+  setTimeout(() => {
+    document.getElementById("analyzing").style.display = "none";
+    const wrap = document.getElementById("ticket-wrap");
+    wrap.style.display = "block";
+    wrap.innerHTML = `
+      <div class="ticket">
+        <div class="ticket-head">
+          <p class="eyebrow">Analyse terminée</p>
+          <h2>Récapitulatif de votre demande</h2>
+          <div class="ticket-num">N° ${ticketNum}<br>${dateStr}</div>
+          <div class="stamp">Traité ✓</div>
+        </div>
+        <div class="perforation"></div>
+        <div class="ticket-body">
 
-if(data.service=="IT"){
+          <div class="ticket-row"><span class="k">Client</span><span class="v">${escapeHtml(data.nom)}</span></div>
+          <div class="ticket-row"><span class="k">Téléphone</span><span class="v">${escapeHtml(data.telephone)}</span></div>
+          <div class="ticket-row"><span class="k">Ville</span><span class="v">${escapeHtml(data.ville)}</span></div>
+          <div class="ticket-row"><span class="k">Domaine</span><span class="v"><span class="domain-badge ${sol.cls}">${sol.label}</span></span></div>
 
-message=
-"Audit informatique, réseau, sécurité, maintenance et accompagnement IT.";
+          <p class="need-quote">"${escapeHtml(data.besoin)}"</p>
 
+          <div class="solution-box">
+            <strong>Notre proposition</strong>
+            ${sol.texte}
+          </div>
+
+          <a href="${waHref}" target="_blank" rel="noopener">
+            <button class="btn btn-whatsapp" type="button">Continuer sur WhatsApp</button>
+          </a>
+          <button class="btn btn-ghost" type="button" onclick="window.print()">Imprimer / enregistrer ce ticket</button>
+        </div>
+      </div>
+    `;
+  }, 900);
+});
+
+function escapeHtml(str){
+  return String(str)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
-
-
-if(data.service=="BTP"){
-
-message=
-"Étude, construction, rénovation et suivi de chantier.";
-
-}
-
-
-if(data.service=="AGRO"){
-
-message=
-"Conseil agricole, production, irrigation et accompagnement.";
-
-}
-
-
-if(data.service=="ENT"){
-
-message=
-"Nettoyage, entretien et maintenance des espaces.";
-
-}
-
-
-
-document.getElementById("resultat").innerHTML=
-
-`
-<h3>${data.nom}</h3>
-
-<p>
-Domaine :
-<b>${data.service}</b>
-</p>
-
-<p>
-Besoin :
-${data.besoin}
-</p>
-
-<p>
-Solution proposée :
-${message}
-</p>
-
-`;
-
-
-
-let msg=
-`Bonjour, je suis ${data.nom}.
-Mon besoin concerne ${data.service}.
-Besoin : ${data.besoin}`;
-
-
-
-document.getElementById("whatsapp").href=
-"https://wa.me/22890000000?text="
-+encodeURIComponent(msg);
-
-
 </script>
-
-
 </body>
-
 </html>
