@@ -2,44 +2,75 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Services Professionnels</title>
+<title>Atelier Services — Accès client</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="description" content="Accédez à votre questionnaire de besoin : Informatique & Sécurité, BTP, Agronomie, Entretien.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div class="container">
+<div class="shell">
 
-<h1>Bienvenue</h1>
+  <div class="brand">
+    <div class="brand-mark">AS</div>
+    <div class="brand-name">Atelier <span>Services</span></div>
+  </div>
 
-<p>
-Nous vous accompagnons dans vos projets :
-</p>
+  <div class="steps">
+    <div class="step active"><span class="num">1</span><span class="label">Accès</span></div>
+    <div class="sep"></div>
+    <div class="step"><span class="num">2</span><span class="label">Besoin</span></div>
+    <div class="sep"></div>
+    <div class="step"><span class="num">3</span><span class="label">Résultat</span></div>
+  </div>
 
-<ul>
-<li>💻 Informatique & Sécurité</li>
-<li>🏗️ BTP & Construction</li>
-<li>🌱 Agronomie</li>
-<li>🧹 Entretien & Maintenance</li>
-</ul>
+  <div class="card">
+    <p class="eyebrow">Bienvenue</p>
+    <h1>Décrivez votre besoin,<br><em>on s'occupe du reste</em></h1>
+    <p class="lede">
+      Nous accompagnons particuliers et entreprises sur quatre domaines.
+      Munissez-vous du code transmis par votre conseiller pour démarrer.
+    </p>
 
+    <div class="domain-strip">
+      <div class="chip it">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>
+        Informatique & Sécurité
+      </div>
+      <div class="chip btp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V9l6-4 6 4v12"/><path d="M20 21V11l-4-2"/><path d="M9 21v-5h4v5"/></svg>
+        BTP & Construction
+      </div>
+      <div class="chip agro">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21c0-6 4-9 8-10-1 6-4 9-8 10Z"/><path d="M12 21c0-7-4-10-8-11 1 6 4 10 8 11Z"/></svg>
+        Agronomie
+      </div>
+      <div class="chip ent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4 6 20"/><path d="M10 4h8l-2 6h-8z"/><circle cx="6" cy="20" r="1.6"/></svg>
+        Entretien
+      </div>
+    </div>
 
-<h3>Code client</h3>
+    <label for="code">Code client</label>
+    <div class="code-input-wrap">
+      <input id="code" placeholder="Ex : CLIENT-DEMO" autocomplete="off">
+    </div>
+    <p class="field-hint">Le code vous a été communiqué par SMS ou WhatsApp par votre conseiller.</p>
 
-<input id="code" placeholder="Ex: CLIENT-20260724">
+    <button class="btn btn-primary" id="btn-verifier" onclick="verifierCode()">
+      Accéder au questionnaire
+    </button>
 
-<button onclick="verifierCode()">
-Accéder au questionnaire
-</button>
+    <p id="message" class="message"></p>
+  </div>
 
-<p id="message"></p>
+  <p class="footnote">Atelier Services — Notsé & environs, Togo · Réponse sous 24h ouvrées</p>
 
 </div>
 
-
+<script src="js/shared.js"></script>
 <script src="js/auth.js"></script>
-
 </body>
 </html>
